@@ -1,6 +1,6 @@
 pipeline {
     agent {
-	    docker { image 'python:latest' }
+	    docker { image 'ubuntu' }
     }
             environment { HOME = "${env.WORKSPACE}" }
     stages {
@@ -13,12 +13,14 @@ pipeline {
         stage('Install pip modules') {
             steps {
 	        // ******* Required change
+		     sh 'apt-get install '
                 // Install python modules
                      sh 'pip install flask --user'
 	        }
             }	
         stage('Build') {
             steps {
+	        sh 'which docker'
                 sh 'docker build -t rockyapp:v1 .'
                 }
             }
