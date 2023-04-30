@@ -12,6 +12,10 @@ pipeline {
             }
         stage('Install pip modules') {
             steps {
+			    // ******* Required change
+			    environment {
+                    HOME = "${env.WORKSPACE}"
+                }
                 // Install python modules
                      sh 'pip install flask --user'
 	        }
