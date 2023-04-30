@@ -14,11 +14,11 @@ pipeline {
             steps {
 	       withEnv(["HOME=${env.WORKSPACE}"]) {
                 // Install python modules
-		  sh'''
+		  sh'
                      pip install virtualenv
                      virtualenv venv
                      pip install -r requirements.txt
-                 '''
+                 '
             }	
         stage('Build') {
             steps {
@@ -32,4 +32,3 @@ pipeline {
             }
         }
     }
-}
