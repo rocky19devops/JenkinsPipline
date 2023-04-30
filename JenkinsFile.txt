@@ -7,7 +7,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Get some code from a GitHub repository
-                git 'git@github.com:rocky19devops/JenkinsPipline.git'
+                git 'https://github.com/rocky19devops/JenkinsPipline.git'
                 }
             }
         stage('Install pip modules') {
