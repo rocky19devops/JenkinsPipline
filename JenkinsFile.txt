@@ -1,0 +1,32 @@
+pipeline {
+    agent {
+	    docker { image 'python:latest' }
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Get some code from a GitHub repository
+                git 'git@github.com:rocky19devops/JenkinsPipline.git'
+                }
+            }
+		stage('Install pip modules') {
+            steps {
+                // Install python modules
+				pip install -r requirements.txt
+                }
+            }	
+        stage('Build') {
+            steps {
+                docker build -t "myfirstapp:v1" .
+                }
+            }
+        stage('Push') {
+            steps {
+                echo "Pushed Successfully"
+                }
+            }
+        }
+    }
+}
+
