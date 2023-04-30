@@ -10,7 +10,7 @@ pipeline {
                 git 'git@github.com:rocky19devops/JenkinsPipline.git'
                 }
             }
-		stage('Install pip modules') {
+        stage('Install pip modules') {
             steps {
                 // Install python modules
 				pip install -r requirements.txt
