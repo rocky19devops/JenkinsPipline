@@ -18,7 +18,7 @@ pipeline {
             }	
         stage('Build') {
             steps {
-                docker build -t "myfirstapp:v1" .
+                echo 'hello'
                 }
             }
         stage('Push') {
@@ -28,5 +28,3 @@ pipeline {
             }
         }
     }
-}
-
