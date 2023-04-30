@@ -7,13 +7,6 @@ pipeline {
                 git 'https://github.com/rocky19devops/JenkinsPipline.git'
                 }
             }
-        stage('Install pip modules') {
-            steps {
-	        // ******* Required change
-                // Install python modules
-                //    sh 'pip install flask --user'
-	        }
-            }	
         stage('Build') {
             steps {
 	        sh 'which docker'
