@@ -18,6 +18,7 @@ pipeline {
 	        }
             }	
         stage('Build') {
+	      agent any
             steps {
 	        sh 'which docker'
                 sh 'docker build -t rockyapp:v1 .'
