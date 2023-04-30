@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rockyapp
+  namespace: rocky
+  annotations:
+    nginx.ingress.kubernetes.io/secure-backends: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - www.apacherocky.com
+    secretName: rockyapp
+  rules:
+  - host: "www.apacherocky.com"
+    http:
+      paths:
+        - pathType: Prefix
+          path: "/"
+          backend:
+            service:
+              name: rockyapp
+              port:
+                number: 8080
+
