@@ -2,7 +2,7 @@ pipeline {
     agent {
 	    docker { image 'python:latest' }
     }
-
+            environment { HOME = "${env.WORKSPACE}" }
     stages {
         stage('Checkout') {
             steps {
@@ -13,7 +13,6 @@ pipeline {
         stage('Install pip modules') {
             steps {
 	        // ******* Required change
-	            environment { HOME = "${env.WORKSPACE}" }
                 // Install python modules
                      sh 'pip install flask --user'
 	        }
