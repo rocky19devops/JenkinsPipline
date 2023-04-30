@@ -1,8 +1,8 @@
 pipeline {
     agent {
-	    docker { image 'ubuntu' }
+	    any
     }
-            environment { HOME = "${env.WORKSPACE}" }
+   
     stages {
         stage('Checkout') {
             steps {
@@ -13,7 +13,6 @@ pipeline {
         stage('Install pip modules') {
             steps {
 	        // ******* Required change
-		     sh 'apt-get install '
                 // Install python modules
                      sh 'pip install flask --user'
 	        }
