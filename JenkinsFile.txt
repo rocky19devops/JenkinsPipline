@@ -12,13 +12,13 @@ pipeline {
             }
         stage('Install pip modules') {
             steps {
-                // Install python modules
-				pip install -r requirements.txt
+                // Install python modules  
+                  sh 'pip install -r requirements.txt'
                 }
             }	
         stage('Build') {
             steps {
-                echo 'hello'
+                sh 'docker build -t rockyapp:v1 .'
                 }
             }
         stage('Push') {
