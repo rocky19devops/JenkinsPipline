@@ -1,5 +1,8 @@
 pipeline {
-    agent any
+    agent {
+	    docker { image 'python' }
+    }
+            environment { HOME = "${env.WORKSPACE}" }
     stages {
         stage('Checkout') {
             steps {
