@@ -13,7 +13,7 @@ pipeline {
         stage('Install pip modules') {
             steps {
                 // Install python modules  
-                  sh 'pip install flask'
+                  sh 'sudo pip install flask'
                 }
             }	
         stage('Build') {
