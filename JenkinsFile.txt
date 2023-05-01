@@ -35,5 +35,17 @@ pipeline {
             }
         
         }
+	stage('Running Docker') {
+	    agent any
+            steps {
+		withCredentials([usernamePassword(credentialsId: 'rockydockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+		  sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+	          echo 'Running Docker Container ............'
+		  sh "docker pull rocky19devops/rockyapps18"
+                  sh "docker run -p 8090:8080" rocky19devops/rockyapps18"
+		}
+            }
+        
+        }
     }
 }
