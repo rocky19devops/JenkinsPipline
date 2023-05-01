@@ -42,7 +42,7 @@ pipeline {
 		  sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
 	          echo 'Running Docker Container ............'
 		  sh "docker pull rocky19devops/rockyapps${BUILD_NUMBER}"
-                  sh "docker run -p 8090:8080 rocky19devops/rockyapps${BUILD_NUMBER}"
+                  sh "docker run -p 8090:8080 --mount type=bind,source=/etc/tls,target=/etc/tls rocky19devops/rockyapps${BUILD_NUMBER}"
 		}
             }
         
