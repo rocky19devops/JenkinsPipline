@@ -16,6 +16,7 @@ pipeline {
 	        sh '''
 		echo 'Building Docker Image............'
                 docker build -t rocky19devops/rockyapps:${BUILD_NUMBER} .
+		docker tag rockyapps:${BUILD_NUMBER} rocky19devops/rockyapps:${BUILD_NUMBER}
 		'''
                 }
             }
