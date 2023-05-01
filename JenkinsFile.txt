@@ -1,5 +1,8 @@
 pipeline {
     agent any
+     environment {
+        IMAGE_TAG = "${BUILD_NUMBER}"
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -10,13 +13,18 @@ pipeline {
             }
         stage('Build') {
             steps {
-	        sh 'which docker'
-                sh 'docker build -t rockyapp:v1 .'
+	        sh '''
+		echo 'Building Docker Image............'
+                docker build -t rocky19devops/myapp:${BUILD_NUMBER}
+		'''
                 }
             }
         stage('Push') {
             steps {
-                echo "Pushed Successfully"
+	        sh '''
+	        echo 'Pushing Docker Image............'
+                docker push rocky19devops/myapp:${BUILD_NUMBER}
+		'''
                 }
             }
         }
