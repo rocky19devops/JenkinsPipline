@@ -6,6 +6,9 @@ pipeline {
     }
     stages {
         stage('Checkout') {
+	    agent {
+	    docker { image 'python' }
+    	    }
             steps {
                 // Get some code from a GitHub repository
                 // git 'https://github.com/rocky19devops/JenkinsPipline.git'
@@ -13,9 +16,7 @@ pipeline {
                 }
             }
         stage('Build') {
-	    agent {
-	    docker { image 'docker' }
-    	    }
+	    agent any
             steps {
 	        sh '''
 		echo 'Building Docker Image............'
@@ -24,9 +25,7 @@ pipeline {
                 }
             }
         stage('Push') {
-	    agent {
-	    docker { image 'docker' }
-    	    }
+	    agent any
             steps {
 		withCredentials([usernamePassword(credentialsId: 'rockydockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
 		  sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
