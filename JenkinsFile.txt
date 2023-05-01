@@ -15,6 +15,7 @@ pipeline {
                 }
             }
         stage('Build') {
+	    agent any
             steps {
 	        sh '''
 		echo 'Building Docker Image............'
@@ -23,6 +24,7 @@ pipeline {
                 }
             }
         stage('Push') {
+	    agent any
             steps {
 		withCredentials([usernamePassword(credentialsId: 'rockydockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
 		  sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
