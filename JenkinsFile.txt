@@ -15,7 +15,7 @@ pipeline {
             steps {
 	        sh '''
 		echo 'Building Docker Image............'
-                docker build -t rocky19devops/myapp:${BUILD_NUMBER}
+                docker build -t rocky19devops/myapp:${BUILD_NUMBER} .
 		'''
                 }
             }
