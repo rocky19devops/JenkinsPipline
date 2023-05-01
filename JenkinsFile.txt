@@ -21,11 +21,14 @@ pipeline {
             }
         stage('Push') {
             steps {
-	        sh '''
-	        echo 'Pushing Docker Image............'
-                docker push rocky19devops/rockyapps:${BUILD_NUMBER}
-		'''
-                }
+		withCredentials([usernamePassword(credentialsId: 'rockydockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+		  sh '''
+	          echo 'Pushing Docker Image............'
+                  docker push rocky19devops/rockyapps:${BUILD_NUMBER}
+		  '''
+		}
             }
+        
         }
     }
+}
