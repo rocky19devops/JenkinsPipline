@@ -36,7 +36,7 @@ pipeline {
 		  sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
 	          echo 'Running Docker Container ............'
                   sh "helm repo add helmdemo https://rocky19devops.github.io/rockycharts/"
-		  sh "helm install rockydemo helmdemo/rockyapps"
+		  sh "helm install --set image=rocky19devops/rockyapps${BUILD_NUMBER} rockydemo helmdemo/rockyapps"
 		}
             }
         
