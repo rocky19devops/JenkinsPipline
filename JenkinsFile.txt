@@ -6,9 +6,6 @@ pipeline {
     }
     stages {
         stage('Checkout') {
-	    agent {
-	    docker { image 'python' }
-    	    }
             steps {
                 // Get some code from a GitHub repository
                 // git 'https://github.com/rocky19devops/JenkinsPipline.git'
@@ -16,7 +13,6 @@ pipeline {
                 }
             }
         stage('Build') {
-	    agent any
             steps {
 	        sh '''
 		echo 'Building Docker Image............'
@@ -25,7 +21,6 @@ pipeline {
                 }
             }
         stage('Push') {
-	    agent any
             steps {
 		withCredentials([usernamePassword(credentialsId: 'rockydockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
 		  sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
@@ -35,14 +30,13 @@ pipeline {
             }
         
         }
-	stage('Running Docker') {
-	    agent any
+	stage('Deploy Application into K8's Using Helm') {
             steps {
 		withCredentials([usernamePassword(credentialsId: 'rockydockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
 		  sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
 	          echo 'Running Docker Container ............'
-		  sh "docker pull rocky19devops/rockyapps${BUILD_NUMBER}"
-                  sh "docker run -p 8090:8080 --mount type=bind,source=/etc/tls,target=/etc/tls rocky19devops/rockyapps${BUILD_NUMBER}"
+                  sh "helm repo add helmdemo https://rocky19devops.github.io/rockycharts/"
+		  sh "helm install rockydemo helmdemo/rockyapps"
 		}
             }
         
