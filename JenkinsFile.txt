@@ -30,7 +30,7 @@ pipeline {
             }
         
         }
-	stage('Deploy Application into K8's Using Helm') {
+	stage('Deploy Application into K8s Using Helm') {
             steps {
 		withCredentials([usernamePassword(credentialsId: 'rockydockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
 		  sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
