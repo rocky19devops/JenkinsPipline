@@ -1,0 +1,11 @@
+app: rockyapps
+replicas: 5
+image: rocky19devops/rockyapps26
+name: pythonapp
+path: /etc/tls
+mountName: rockymount
+secretName: rockyapp
+port: 80
+targetPort: 8080
+type: NodePort
+hosts: www.apacherocky.com
