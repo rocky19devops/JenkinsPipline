@@ -32,7 +32,7 @@ pipeline {
         }
 	stage('Deploy Application into K8s Using Helm') {
             steps {
-	        withKubeConfig([credentialsId: 'rockykubernetes', serverUrl: 'https://192.168.1.49:6443']) {
+	        withCredentials([credentialsId: 'kubernetesdemo']) {
 		  sh "helm repo add helmdemo https://rocky19devops.github.io/rockycharts/"
 	          sh "helm install --set image=rocky19devops/rockyapps${BUILD_NUMBER} rockydemo helmdemo/rockyapps"
                   sh "kubectl get all"
