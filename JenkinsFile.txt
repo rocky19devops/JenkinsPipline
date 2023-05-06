@@ -31,15 +31,14 @@ pipeline {
         
         }
 	stage('Deploy Application into K8s Using Helm') {
+	  environment {
+        	KUBECONFIG = credentials('kubernetesdemo')
+      	  }
             steps {
-		withCredentials([usernamePassword(credentialsId: 'rockydockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-		  sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-	          echo 'Running Docker Container ............'
                   sh "helm repo add helmdemo https://rocky19devops.github.io/rockycharts/"
 		  sh "helm install --set image=rocky19devops/rockyapps${BUILD_NUMBER} rockydemo helmdemo/rockyapps"
-		}
-            }
-        
+		  sh "kubectl get all"
+            }    
         }
     }
 }
