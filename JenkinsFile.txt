@@ -24,19 +24,19 @@ pipeline {
             steps {
 		      withCredentials([usernamePassword(credentialsId: 'rockydockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
 		      sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-	          echo 'Pushing Docker Image............'
-                  sh "docker push rocky19devops/rockyapps${BUILD_NUMBER}"
+	              echo 'Pushing Docker Image............'
+                      sh "docker push rocky19devops/rockyapps${BUILD_NUMBER}"
 		      }
             }
         
         }
 	stage('Deploy Application into K8s Using Helm') {
             steps {
-	          withKubeConfig([credentialsId: 'rockykubernetes', serverUrl: 'https://192.168.1.49:6443']) {
-                  sh "helm repo add helmdemo https://rocky19devops.github.io/rockycharts/"
-		          sh "helm install --set image=rocky19devops/rockyapps${BUILD_NUMBER} rockydemo helmdemo/rockyapps"
-		          sh "kubectl get all"
-	          }
+	              withKubeConfig([credentialsId: 'rockykubernetes', serverUrl: 'https://192.168.1.49:6443']) {
+                      sh "helm repo add helmdemo https://rocky19devops.github.io/rockycharts/"
+		      sh "helm install --set image=rocky19devops/rockyapps${BUILD_NUMBER} rockydemo helmdemo/rockyapps"
+		      sh "kubectl get all"
+	              }
             }    
        }
 }
