@@ -32,11 +32,12 @@ pipeline {
         }
 	stage('Deploy Application into K8s Using Helm') {
             steps {
-	        withCredentials([kubeconfigFile(credentialsId: 'rockykubernetesdemo', variable: 'KUBECONFIG')]) {
+	       // withCredentials([kubeconfigFile(credentialsId: 'rockykubernetesdemo', variable: 'KUBECONFIG')]) {
+	        kubernetesDeploy (configs: 'https_mount.yaml', kubeconfigId: 'kubedemo')
     	        sh '''cat $KUBECONFIG'''
 		  sh "helm repo add helmdemo https://rocky19devops.github.io/rockycharts/"
 	          sh "helm install --set image=rocky19devops/rockyapps${BUILD_NUMBER} rockydemo helmdemo/rockyapps"
-		}
+		//}
             }
         
         }
