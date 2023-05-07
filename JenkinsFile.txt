@@ -35,7 +35,7 @@ pipeline {
 	        // withCredentials([kubeconfigContent(credentialsId: 'rockydemo', variable: 'KUBECONFIG_CONTENT')]) {
 		// withCredentials([sshUserPrivateKey(credentialsId: 'rockysysdemo')]) {
 	        // kubernetesDeploy (configs: 'https_mount.yaml', kubeconfigId: 'kubedemo')
-    	        sh "ssh -tt 192.168.1.49 'ls'"
+    	        sh "ssh -tt 192.168.1.49 'helm repo add helmdemo https://rocky19devops.github.io/rockycharts/;helm install --set image=rocky19devops/rockyapps${BUILD_NUMBER} rockydemo helmdemo/rockyapps'"
 		  // sh "helm repo add helmdemo https://rocky19devops.github.io/rockycharts/"
 	          // sh "helm install --set image=rocky19devops/rockyapps${BUILD_NUMBER} rockydemo helmdemo/rockyapps"
 		  //}
