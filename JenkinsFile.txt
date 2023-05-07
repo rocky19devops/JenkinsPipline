@@ -34,7 +34,7 @@ pipeline {
             steps {
 	        withKubeConfig([credentialsId: 'kubedemo']) {
     	        //sh "ssh -tt 192.168.1.49 'helm repo add helmdemo https://rocky19devops.github.io/rockycharts/;helm install --set image=rocky19devops/rockyapps${BUILD_NUMBER} rockydemo helmdemo/rockyapps;sleep 60;kubectl get all;sleep 10,helm uninstall rockydemo'"
-		helm install --set image=rocky19devops/rockyapps${BUILD_NUMBER} rockydemo helmdemo/rockyapps 
+		sh "helm install --set image=rocky19devops/rockyapps${BUILD_NUMBER} rockydemo helmdemo/rockyapps"
 		}
             }
         
