@@ -34,7 +34,7 @@ pipeline {
             steps {
     	       // sh "ssh -tt 192.168.1.49 'helm repo add helmdemo https://rocky19devops.github.io/rockycharts/;helm install --set image=rocky19devops/rockyapps${BUILD_NUMBER} rockydemo helmdemo/rockyapps'"
 	       sh '''
-	       ssh -tt 192.168.1.49 'helm repo add helmdemo https://rocky19devops.github.io/rockycharts/;helm install --set image=rocky19devops/rockyapps${BUILD_NUMBER} rockydemo helmdemo/rockyapps;kubectl get all'
+	       ssh -tt 192.168.1.49 'helm repo add helmdemo https://rocky19devops.github.io/rockycharts/;helm install --set image=rocky19devops/rockyapps${BUILD_NUMBER} rockydemo helmdemo/rockyapps;kubectl get all;helm uninstall rockydemo'
 	       '''
             }
         
